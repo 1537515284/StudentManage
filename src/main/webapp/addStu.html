@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<title>首页 - 添加学生信息</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="stylesheet" type="text/css" href="static/css/materialdesignicons.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/style.min.css">
+  <style>
+    /*bootstrap-select插件用到的，也可以不用*/
+    .bootstrap-select.open .dropdown-toggle {
+      border-color: #33cabb!important;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(51, 202, 187, .6);
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(51, 202, 187, .6);
+    }
+    .bootstrap-select.open .dropdown-menu.open {
+      border: 1px solid #ebebeb;
+    }
+
+    .p-t-5 {
+      padding-top: 5px;
+    }
+    .h-28 {
+      height: 28px;
+    }
+
+    .w-120 {
+      width: 120px;
+      padding-left: 0px;
+      padding-right: 15px;
+    }
+    .w-120-calc {
+      width: -moz-calc(100% - 120px);
+      width: -webkit-calc(100% - 120px);
+      width: calc(100% - 120px);
+      padding-right: 15px;
+    }
+    .offset-md-120 {
+      margin-left: 120px;
+    }
+    .mx-w-800 {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+<!--页面loading-->
+<div id="lyear-preloader" class="loading">
+  <div class="ctn-preloader">
+    <div class="round_spinner">
+      <div class="spinner"></div>
+      <img src="static/images/loading-logo.png" alt="">
+    </div>
+  </div>
+</div>
+<!--页面loading end-->
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    <!--左侧导航-->
+    <aside class="lyear-layout-sidebar">
+
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a href="index.html"><img src="static/images/logo-sidebar.png" title="logo" alt="logo" /></a>
+      </div>
+      <div class="lyear-layout-sidebar-info lyear-scroll">
+
+        <nav class="sidebar-main">
+          <ul class="nav-drawer">
+            <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> <span>后台首页</span></a> </li>
+          </ul>
+        </nav>
+
+        <nav class="sidebar-main">
+          <ul class="nav-drawer">
+            <li class="nav-item"> <a href="addStu.html"><i class="mdi mdi-store"></i> <span>添加学生信息</span></a> </li>
+          </ul>
+        </nav>
+
+        <nav class="sidebar-main">
+          <ul class="nav-drawer">
+            <li class="nav-item"> <a href="maintainStu.html"><i class="mdi mdi-cart"></i> <span>学生信息维护</span></a> </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="copyright">Copyright &copy; 2022. <a target="_blank" href="https://www.baidu.com">LS</a> All rights reserved.</p>
+        </div>
+      </div>
+
+    </aside>
+    <!--End 左侧导航-->
+    
+    <!--头部信息-->
+    <header class="lyear-layout-header">
+      
+      <nav class="navbar">
+      
+        <div class="navbar-left">
+          <div class="lyear-aside-toggler">
+            <span class="lyear-toggler-bar"></span>
+            <span class="lyear-toggler-bar"></span>
+            <span class="lyear-toggler-bar"></span>
+          </div>
+        </div>
+        
+        <ul class="navbar-right d-flex align-items-center">
+          <li class="dropdown dropdown-profile">
+            <a href="javascript:void(0)">
+              <span>笔下光年</span>
+            </a>
+          </li>
+        </ul>
+        
+      </nav>
+      
+    </header>
+    <!--End 头部信息-->
+    
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+      
+      <div class="container-fluid p-t-15">
+
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header"><div class="card-title">添加学生信息</div></div>
+            <div class="card-body">
+
+              <form id="add-form" action="#!" method="post"  class="mx-w-800">
+                <div class="form-group clearfix">
+                  <label class="w-120 float-left col-form-label p-t-5" for="name">姓名</label>
+                  <div class="float-left w-120-calc">
+                    <input type="text" class="form-control" id="name" name="name" value="" placeholder="输入姓名" />
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label class="w-120 float-left col-form-label p-t-5">性别</label>
+                  <div class="float-left w-120-calc pt-2 h-28">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" name="sex" value="M" id="sexM">
+                      <label class="custom-control-label" for="sexM">男</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" name="sex" value="F" id="sexF">
+                      <label class="custom-control-label" for="sexF">女</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label class="w-120 float-left col-form-label p-t-5" for="age">年龄</label>
+                  <div class="float-left w-120-calc">
+                    <input type="text" class="form-control" id="age" name="age" value="" placeholder="输入年龄" />
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label class="w-120 float-left col-form-label p-t-5" for="phone">电话</label>
+                  <div class="float-left w-120-calc">
+                    <input type="text" class="form-control" id="phone" name="phone" value="" placeholder="输入手机号" />
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label class="w-120 float-left col-form-label p-t-5" for="department">系院</label>
+                  <div class="float-left w-120-calc">
+                    <input type="text" class="form-control" id="department" name="department" value="" placeholder="输入所在系院" />
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <label class="w-120 float-left col-form-label p-t-5" for="address">地址</label>
+                  <div class="float-left w-120-calc">
+                    <input type="text" class="form-control" id="address" name="address" value="" placeholder="输入地址" />
+                  </div>
+                </div>
+
+                <div class="form-group clearfix">
+                  <div class="float-left w-120-calc offset-md-120">
+                    <button type="submit" class="btn btn-primary">保 存</button>
+                    <button type="reset" class="btn btn-default">重 置</button>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="static/js/main.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="static/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script type="text/javascript" src="static/js/jquery-validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="static/js/jquery-validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="static/js/api.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $.validator.addMethod('phone_format', function(value, element) {
+      return this.optional(element) || /^1[3|4|5|6|7|8|9][0-9]{9}$/.test(value);
+    }, '手机号码格式错误');
+
+    $('#add-form').validate({
+      ignore: ".ignore",    // 插件默认不验证隐藏元素,这里可以自定义一个不验证的class,即验证隐藏元素,不验证class为.ignore的元素
+      focusInvalid: false,  // 禁用无效元素的聚焦
+      rules: {
+        'name': {
+          required: true,
+          minlength: 2,
+          maxlength: 16
+        },
+        'sex': {
+          required: true,
+        },
+        'age': {
+          required: true,
+          minlength: 1,
+          maxlength: 3
+        },
+        'phone':{
+          required: true,
+          phone_format: true
+        },
+        'department': {
+          required: true,
+          minlength: 2,
+          maxlength: 16
+        },
+        'address': {
+          required: true,
+          minlength: 2,
+          maxlength: 16
+        },
+      },
+      errorPlacement: function errorPlacement(error, element) {
+        var $parent = $(element).parents('.form-group');
+        if ($parent.find('.invalid-feedback').length) {
+          return;
+        }
+        $(element).addClass('is-invalid');
+        $parent.append(error.addClass('invalid-feedback'));
+      },
+      highlight: function(element) {
+        var $el = $(element);
+        if ($el.hasClass('js-tags-input')) {
+          $el.next('.tagsinput').addClass('is-invalid');  // tags插件所隐藏的输入框没法实时验证，比较尴尬
+        }
+      },
+      unhighlight: function(element) {
+        $(element).next('.tagsinput').removeClass('is-invalid');
+        $(element).removeClass('is-invalid');
+      },
+      submitHandler: function(form) {
+        let data = $("form").serialize();
+        addStu(data);
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>

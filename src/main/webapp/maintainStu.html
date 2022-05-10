@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>首页 - 维护学生信息</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" href="static/css/materialdesignicons.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.min.css">
+    <link rel="stylesheet" type="text/css" href="static/js/jquery-confirm/jquery-confirm.min.css">
+    <style>
+        .p-t-5 {
+            padding-top: 5px;
+        }
+        .h-28 {
+            height: 28px;
+        }
+
+        .w-120 {
+            width: 100px;
+            padding-left: 0px;
+            padding-right: 15px;
+        }
+        .w-120-calc {
+            width: -moz-calc(100% - 120px);
+            width: -webkit-calc(100% - 120px);
+            width: calc(100% - 120px);
+            padding-right: 15px;
+        }
+        .offset-md-120 {
+            margin-left: 120px;
+        }
+        .mx-w-800 {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+<!--页面loading-->
+<div id="lyear-preloader" class="loading">
+    <div class="ctn-preloader">
+        <div class="round_spinner">
+            <div class="spinner"></div>
+            <img src="static/images/loading-logo.png" alt="">
+        </div>
+    </div>
+</div>
+<!--页面loading end-->
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
+
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+                <a href="index.html"><img src="static/images/logo-sidebar.png" title="logo" alt="logo" /></a>
+            </div>
+            <div class="lyear-layout-sidebar-info lyear-scroll">
+
+                <nav class="sidebar-main">
+                    <ul class="nav-drawer">
+                        <li class="nav-item active"> <a href="index.html"><i class="mdi mdi-home"></i> <span>后台首页</span></a> </li>
+                    </ul>
+                </nav>
+
+                <nav class="sidebar-main">
+                    <ul class="nav-drawer">
+                        <li class="nav-item"> <a href="addStu.html"><i class="mdi mdi-store"></i> <span>添加学生信息</span></a> </li>
+                    </ul>
+                </nav>
+
+                <nav class="sidebar-main">
+                    <ul class="nav-drawer">
+                        <li class="nav-item"> <a href="maintainStu.html"><i class="mdi mdi-cart"></i> <span>学生信息维护</span></a> </li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <p class="copyright">Copyright &copy; 2022. <a target="_blank" href="https://www.baidu.com">LS</a> All rights reserved.</p>
+                </div>
+            </div>
+
+        </aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+
+            <nav class="navbar">
+
+                <div class="navbar-left">
+                    <div class="lyear-aside-toggler">
+                        <span class="lyear-toggler-bar"></span>
+                        <span class="lyear-toggler-bar"></span>
+                        <span class="lyear-toggler-bar"></span>
+                    </div>
+                </div>
+
+                <ul class="navbar-right d-flex align-items-center">
+                    <li class="dropdown dropdown-profile">
+                        <a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">
+                            <img class="img-avatar img-avatar-48 m-r-10" src="static/images/users/avatar.jpg" alt="笔下光年" />
+                            <span>笔下光年</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a class="dropdown-item" href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="lyear_pages_login_1.html"><i class="mdi mdi-logout-variant"></i> 退出登录</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </nav>
+
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+
+            <div class="container-fluid p-t-15">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+
+                            <div class="card-toolbar d-flex flex-column flex-md-row">
+
+                                <div class="row">
+
+                                    <div class="toolbar-btn-action col-4">
+                                        <a class="btn btn-primary m-r-5" href="#!"><i class="mdi mdi-plus"></i> 新增</a>
+                                        <a class="btn btn-success m-r-5 ajax-post confirm" href="/api/student/del" target-form="ids"><i class="mdi mdi-window-close"></i> 批量删除</a>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="stuName" placeholder="学生姓名">
+                                            <div class="input-group-append">
+                                                <button id="btnName" class="btn btn-outline-secondary" type="button" >查询</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="stuId" placeholder="学生ID">
+                                            <div class="input-group-append">
+                                                <button id="btnId" class="btn btn-outline-secondary" type="button" >查询</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+<!--                                <form id="search-form" class="search-bar ml-md-auto" action="#!"  role="form">-->
+<!--                                    <input type="hidden" name="search_field" id="search-field2" value="title" />-->
+<!--                                    <div class="input-group ml-md-auto">-->
+<!--                                        <div class="input-group-prepend">-->
+<!--                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="search-btn">姓名</button>-->
+<!--                                            <div class="dropdown-menu" style="">-->
+<!--                                                <a class="dropdown-item" href="#!">姓名</a>-->
+<!--                                                <a class="dropdown-item" href="#!">学号</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text" class="form-control" name="name" placeholder="请输入信息">-->
+<!--                                        <button type="submit" class="btn btn-primary">查 询</button>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+
+
+
+
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="check-all">
+                                                    <label class="custom-control-label" for="check-all"></label>
+                                                </div>
+                                            </th>
+                                            <th>学号</th>
+                                            <th>姓名</th>
+                                            <th>性别</th>
+                                            <th>年龄</th>
+                                            <th>电话</th>
+                                            <th>系别</th>
+                                            <th>地址</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="stuList">
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+<!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalGrid">-->
+<!--                点击启动-->
+<!--            </button>-->
+
+            <div class="modal fade" id="exampleModalChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalGridTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="exampleModalGridTitle">编辑学生信息</h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="col-md-12">
+                                    <div class="card">
+<!--                                        <div class="card-header"><div class="card-title">修改学生信息</div></div>-->
+                                        <div class="card-body">
+
+                                            <form id="edit-form" action="#!" method="post"  class="mx-w-800">
+                                                <div class="form-group clearfix">
+                                                    <label class="w-120 float-left col-form-label p-t-5" for="id">ID</label>
+                                                    <div class="float-left w-120-calc">
+                                                        <input type="text" class="form-control " id="id" name="id" value=""  readonly/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group clearfix">
+                                                    <label class="w-120 float-left col-form-label p-t-5" for="name">姓名</label>
+                                                    <div class="float-left w-120-calc">
+                                                        <input type="text" class="form-control" id="name" name="name" value="" placeholder="输入姓名" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group clearfix">
+                                                    <label class="w-120 float-left col-form-label p-t-5">性别</label>
+                                                    <div class="float-left w-120-calc pt-2 h-28">
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" class="custom-control-input" name="sex" value="M" id="sexM">
+                                                            <label class="custom-control-label" for="sexM">男</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" class="custom-control-input" name="sex" value="F" id="sexF">
+                                                            <label class="custom-control-label" for="sexF">女</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group clearfix">
+                                                    <label class="w-120 float-left col-form-label p-t-5" for="age">年龄</label>
+                                                    <div class="float-left w-120-calc">
+                                                        <input type="text" class="form-control" id="age" name="age" value="" placeholder="输入年龄" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group clearfix">
+                                                    <label class="w-120 float-left col-form-label p-t-5" for="phone">电话</label>
+                                                    <div class="float-left w-120-calc">
+                                                        <input type="text" class="form-control" id="phone" name="phone" value="" placeholder="输入手机号" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group clearfix">
+                                                    <label class="w-120 float-left col-form-label p-t-5" for="department">系院</label>
+                                                    <div class="float-left w-120-calc">
+                                                        <input type="text" class="form-control" id="department" name="department" value="" placeholder="输入所在系院" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group clearfix">
+                                                    <label class="w-120 float-left col-form-label p-t-5" for="address">地址</label>
+                                                    <div class="float-left w-120-calc">
+                                                        <input type="text" class="form-control" id="address" name="address" value="" placeholder="输入地址" />
+                                                    </div>
+                                                </div>
+
+<!--                                                <div class="form-group clearfix">-->
+<!--                                                    <div class="float-left w-120-calc offset-md-120">-->
+<!--                                                        <button type="submit" class="btn btn-primary">保 存</button>-->
+<!--                                                        <button type="reset" class="btn btn-default">重 置</button>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                     <div class="modal-footer">
+                         <button type="button" id="btnEdit" class="btn btn-primary">保存</button>
+                         <button type="button" id="btnClose" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+
+
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/popper.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="static/js/lyear-loading.js"></script>
+<script type="text/javascript" src="static/js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="static/js/jquery-confirm/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="static/js/main.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="static/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script type="text/javascript" src="static/js/jquery-validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="static/js/jquery-validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="static/js/api.js"></script>
+<script>
+    $('#exampleModalChange').on('show.bs.modal', function (event) {
+
+        let button = $(event.relatedTarget);
+        let recipient = button.data('index');
+        let modal = $(this);
+
+
+        let children = $('#stuList').children().eq(recipient);
+        // console.log(children);
+        let innerText = children[0].innerText;
+        // console.log(innerText);
+        let strings = innerText.split("\t");
+        // console.log(strings);
+
+
+        modal.find("[name='id']").val(strings[1]);
+        modal.find("[name='name']").val(strings[2]);
+        console.log(modal.find("[name='sex']"));
+        if(strings[3] === 'M'){
+            modal.find("[name='sex']")[0].checked = true;
+        }else {
+            modal.find("[name='sex']")[1].checked = true;
+        }
+        modal.find("[name='age']").val(strings[4]);
+        modal.find("[name='phone']").val(strings[5]);
+        modal.find("[name='department']").val(strings[6]);
+        modal.find("[name='address']").val(strings[7]);
+    })
+</script>
+<script>
+
+    $(document).ready(function () {
+        init();
+
+        function init() {
+            get("/api/student?type=all", function (data) {
+                if (data.code === 200) {
+                    flushList(data.data);
+                }
+            });
+        }
+
+
+        function flushList(stuList) {
+            let index = 0;
+            for (let student of stuList) {
+                $("#stuList").html($("#stuList").html()
+                    + '<tr>'
+                    + '<td>'
+                    + '<div class="custom-control custom-checkbox">'
+                    + '<input type="checkbox" class="custom-control-input ids" name="ids[]" value="' + student.id + '" id="ids-' + student.id + '">'
+                    + '<label class="custom-control-label" for="ids-' + student.id + '"></label>'
+                    + '</div>'
+                    + '</td>'
+                    + '<td>' + student.id + '</td>'
+                    + '<td>' + student.name + '</td>'
+                    + '<td>' + student.sex + '</td>'
+                    + '<td>' + student.age + '</td>'
+                    + '<td>' + student.phone + '</td>'
+                    + '<td>' + student.department + '</td>'
+                    + '<td>' + student.address + '</td>'
+                    + '<td>'
+                    + '<div class="btn-group">'
+                    + '<a class="btn btn-xs btn-default" data-toggle="modal" data-target="#exampleModalChange" data-index="' + index++ + '" href="javascript:void(0);" title=""'
+                    + 'data-original-title="编辑"><i class="mdi mdi-18px mdi-pencil"></i></a>'
+                    + '<a class="btn btn-xs btn-default" href="javascript:void(0);" onclick="delStu(' + student.id + ')" title=""'
+                    + 'data-toggle="tooltip" data-original-title="删除"><i class="mdi mdi-18px mdi-window-close"></i></a>'
+                    + '</div>'
+                    + '</td>'
+                    + '</tr>')
+            }
+        }
+
+        $("#btnId").click(function () {
+            let id = $("#stuId").val();
+            let re = /^\+?[1-9][0-9]*$/;
+            if (!re.test(id)) {
+                showNotify("学号错误，请输入正确的学号", "warning", function () {
+                    $("#stuId").val("");
+                });
+            } else {
+                searchStuById(id);
+            }
+        })
+
+        $("#btnName").click(function () {
+            let name = $("#stuName").val();
+            let re = new RegExp("[\\u4E00-\\u9FFF]+$", "g");
+            if (!re.test(name)) {
+                showNotify("姓名错误，请输入正确的学生姓名", "warning", function () {
+                    $("#stuName").val("");
+                });
+            } else {
+                searchStuByName(name);
+            }
+        })
+
+        $("#btnEdit").click(function () {
+            $("#edit-form").submit();
+        })
+
+
+        $.validator.addMethod('phone_format', function (value, element) {
+            return this.optional(element) || /^1[3|4|5|6|7|8|9][0-9]{9}$/.test(value);
+        }, '手机号码格式错误');
+
+        $('#edit-form').validate({
+            ignore: ".ignore",    // 插件默认不验证隐藏元素,这里可以自定义一个不验证的class,即验证隐藏元素,不验证class为.ignore的元素
+            focusInvalid: false,  // 禁用无效元素的聚焦
+            rules: {
+                'id':{
+                  required:true
+                },
+                'name': {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 16
+                },
+                'sex': {
+                    required: true,
+                },
+                'age': {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 3
+                },
+                'phone': {
+                    required: true,
+                    phone_format: true
+                },
+                'department': {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 16
+                },
+                'address': {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 16
+                },
+            },
+            errorPlacement: function errorPlacement(error, element) {
+                var $parent = $(element).parents('.form-group');
+                if ($parent.find('.invalid-feedback').length) {
+                    return;
+                }
+                $(element).addClass('is-invalid');
+                $parent.append(error.addClass('invalid-feedback'));
+            },
+            highlight: function (element) {
+                var $el = $(element);
+                if ($el.hasClass('js-tags-input')) {
+                    $el.next('.tagsinput').addClass('is-invalid');  // tags插件所隐藏的输入框没法实时验证，比较尴尬
+                }
+            },
+            unhighlight: function (element) {
+                $(element).next('.tagsinput').removeClass('is-invalid');
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function (form) {
+                let data = $("form").serialize();
+                updateStu(data);
+            }
+        });
+    });
+
+</script>
+<script type="text/javascript">
+    $(function(){
+        $('.search-bar .dropdown-menu a').click(function() {
+            var field = $(this).data('field') || '';
+            $('#search-field').val(field);
+            $('#search-btn').html($(this).text());
+        });
+
+        // 通用ajax post请求
+        jQuery(document).delegate('.ajax-post', 'click', function(){
+            var self        = jQuery(this), tips = self.data('tips'), ajax_url = self.attr("href") || self.data("url");
+            var target_form = self.attr('target-form');
+            var text        = self.data('tips');
+            var form        = jQuery('form[name="'+ target_form +'"]');
+
+            if (form.length == 0) {
+                form = jQuery('.' + target_form);
+            }
+
+            var form_data = form.serialize();
+            if ('submit' == self.attr('type') || ajax_url) {
+                if (void 0 == form.get(0)) return false;
+
+                // 如果节点是FORM表单
+                if ('FORM' == form.get(0).nodeName) {
+                    ajax_url = ajax_url || form.get(0).action;
+
+                    // 确认提交
+                    if (self.hasClass('confirm')) {
+                        $.confirm({
+                            title: '',
+                            content: tips || '确认要执行该操作吗？',
+                            type: 'orange',
+                            typeAnimated: true,
+                            buttons: {
+                                confirm: {
+                                    text: '确认',
+                                    btnClass: 'btn-blue',
+                                    action: function() {
+                                        var loader = $('body').lyearloading({
+                                            opacity: 0.2,
+                                            spinnerSize: 'lg'
+                                        });
+                                        self.attr('autocomplete', 'off').prop('disabled', true);
+                                        ajaxPostFun(self, ajax_url, form_data, loader);
+                                    }
+                                },
+                                cancel: {
+                                    text: '取消',
+                                    action: function() {}
+                                }
+                            }
+                        });
+                        return false;
+                    } else {
+                        self.attr("autocomplete", "off").prop("disabled", true);
+                    }
+                } else if ('INPUT' == form.get(0).nodeName || 'SELECT' == form.get(0).nodeName || 'TEXTAREA' == form.get(0).nodeName) {
+                    // 复选框判断是否有选择项
+                    if (form.get(0).type == 'checkbox' && form_data == '') {
+                        showNotify('请选择您要操作的数据', 'danger');
+                        return false;
+                    }
+
+                    if (self.hasClass('confirm')) {
+                        $.confirm({
+                            title: '',
+                            content: tips || '确认要执行该操作吗？',
+                            type: 'orange',
+                            typeAnimated: true,
+                            buttons: {
+                                confirm: {
+                                    text: '确认',
+                                    btnClass: 'btn-blue',
+                                    action: function() {
+                                        var loader = $('body').lyearloading({
+                                            opacity: 0.2,
+                                            spinnerSize: 'lg'
+                                        });
+                                        self.attr('autocomplete', 'off').prop('disabled', true);
+
+                                        ajaxPostFun(self, ajax_url, form_data, loader);
+                                    }
+                                },
+                                cancel: {
+                                    text: '取消',
+                                    action: function() {}
+                                }
+                            }
+                        });
+                        return false;
+                    } else {
+                        self.attr("autocomplete", "off").prop("disabled", true);
+                    }
+                } else {
+                    if (self.hasClass('confirm')) {
+                        $.confirm({
+                            title: '',
+                            content: tips || '确认要执行该操作吗？',
+                            type: 'orange',
+                            typeAnimated: true,
+                            buttons: {
+                                confirm: {
+                                    text: '确认',
+                                    btnClass: 'btn-blue',
+                                    action: function() {
+                                        var loader = $('body').lyearloading({
+                                            opacity: 0.2,
+                                            spinnerSize: 'lg'
+                                        });
+                                        self.attr('autocomplete', 'off').prop('disabled', true);
+
+                                        ajaxPostFun(self, ajax_url, form_data, loader);
+                                    }
+                                },
+                                cancel: {
+                                    text: '取消',
+                                    action: function() {}
+                                }
+                            }
+                        });
+                        return false;
+                    } else {
+                        form_data = form.find("input,select,textarea").serialize();
+                        self.attr("autocomplete", "off").prop("disabled", true);
+                    }
+                }
+
+                var loader = $('body').lyearloading({
+                    opacity: 0.2,
+                    spinnerSize: 'lg'
+                });
+                ajaxPostFun(self, ajax_url, form_data, loader);
+
+                return false;
+            }
+        });
+
+        // 通用ajax get请求
+        jQuery(document).delegate('.ajax-get', 'click', function(){
+            var self = $(this), tips = self.data('tips'), ajax_url = self.attr("href") || self.data("url");
+
+            if (self.hasClass('confirm')) {
+                $.confirm({
+                    title: '',
+                    content: tips || '确认要执行该操作吗？',
+                    type: 'orange',
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-blue',
+                            action: function() {
+                                var loader = $('body').lyearloading({
+                                    opacity: 0.2,
+                                    spinnerSize: 'lg'
+                                });
+                                self.attr('autocomplete', 'off').prop('disabled', true);
+
+                                ajaxGetFun(self, ajax_url, loader);
+                            }
+                        },
+                        cancel: {
+                            text: '取消',
+                            action: function() {}
+                        }
+                    }
+                });
+                return false;
+            } else {
+                var loader = $('body').lyearloading({
+                    opacity: 0.2,
+                    spinnerSize: 'lg'
+                });
+                self.attr('autocomplete', 'off').prop('disabled', true);
+
+                ajaxGetFun(self, ajax_url, loader);
+            }
+            return false;
+        });
+
+        // POST提交处理
+        function ajaxPostFun(selfObj, ajax_url, form_data, loader) {
+            console.log('url==>'+ajax_url);
+            console.log('form_data==>'+form_data);
+            // setTimeout(function() {
+            //     loader.destroy();
+            //     showNotify('修改成功，页面即将自动跳转~', 'success', 1000);
+            //     selfObj.attr("autocomplete", "on").prop("disabled", false);
+            // }, 1e3);
+            // 这里屏蔽get提交，js模拟返回成功，正常使用时请删除上面的内容，打开下面的注释代码
+            jQuery.post(ajax_url, form_data).done(function(res) {
+                loader.destroy();
+                var res = eval('(' + res + ')');
+                var msg = res.msg;
+                if (200 == res.code) {
+                    if (res.url && !selfObj.hasClass('no-refresh')) {
+                        msg += '页面即将自动跳转';
+                    }
+                    showNotify(msg, 'info');
+                    setTimeout(function () {
+                        selfObj.attr("autocomplete", "on").prop("disabled", false);
+                        return selfObj.hasClass("no-refresh") ? false : (res.url ? location.href = res.url : location.reload());
+                    }, 1500);
+                } else {
+                    showNotify(msg, 'danger');
+                    selfObj.attr("autocomplete", "on").prop("disabled", false);
+                }
+            }).fail(function () {
+                loader.destroy();
+                showNotify('服务器发生错误，请稍后再试', 'danger');
+                selfObj.attr("autocomplete", "on").prop("disabled", false);
+            });
+
+        }
+
+        // GET提交处理
+        function ajaxGetFun(selfObj, ajax_url, loader) {
+            console.log(ajax_url);
+            setTimeout(function() {
+                loader.destroy();
+                showNotify('修改成功，页面即将自动跳转~', 'success', 1000);
+                selfObj.attr("autocomplete", "on").prop("disabled", false);
+            }, 1e3);
+            // 这里屏蔽get提交，js模拟返回成功，正常使用时请删除上面的内容，打开下面的注释代码
+            /*
+            jQuery.get(ajax_url).done(function(res) {
+                loader.destroy();
+                var res = eval('(' + res + ')');
+                var msg = res.msg;
+                if (200 == res.code) {
+                    if (res.url && !selfObj.hasClass('no-refresh')) {
+                        msg += '页面即将自动跳转';
+                    }
+                    showNotify(msg, 'info');
+                    setTimeout(function () {
+                        selfObj.attr("autocomplete", "on").prop("disabled", false);
+                        return selfObj.hasClass("no-refresh") ? false : (res.url ? location.href = res.url : location.reload());
+                    }, 1500);
+                } else {
+                    showNotify(msg, 'danger');
+                    selfObj.attr("autocomplete", "on").prop("disabled", false);
+                }
+            }).fail(function () {
+                loader.destroy();
+                showNotify('服务器发生错误，请稍后再试', 'danger');
+                selfObj.attr("autocomplete", "on").prop("disabled", false);
+            });
+            */
+        }
+
+        /*
+         * 提取通用的通知消息方法
+         * 这里只采用简单的用法，如果想要使用回调或者更多的用法，请查看lyear_js_notify.html页面
+         * @param $msg 提示信息
+         * @param $type 提示类型:'info', 'success', 'warning', 'danger'
+         * @param $delay 毫秒数，例如：1000
+         * @param $icon 图标，例如：'fa fa-user' 或 'glyphicon glyphicon-warning-sign'
+         * @param $from 'top' 或 'bottom' 消息出现的位置
+         * @param $align 'left', 'right', 'center' 消息出现的位置
+         */
+        function showNotify($msg, $type, $delay, $icon, $from, $align) {
+            $type  = $type || 'info';
+            $delay = $delay || 1000;
+            $from  = $from || 'top';
+            $align = $align || 'right';
+            $enter = $type == 'danger' ? 'animated shake' : 'animated fadeInUp';
+
+            jQuery.notify({
+                    icon: $icon,
+                    message: $msg
+                },
+                {
+                    element: 'body',
+                    type: $type,
+                    allow_dismiss: true,
+                    newest_on_top: true,
+                    showProgressbar: false,
+                    placement: {
+                        from: $from,
+                        align: $align
+                    },
+                    offset: 20,
+                    spacing: 10,
+                    z_index: 10800,
+                    delay: $delay,
+                    animate: {
+                        enter: $enter,
+                        exit: 'animated fadeOutDown'
+                    }
+                });
+        }
+    });
+</script>
+
+</body>
+</html>
